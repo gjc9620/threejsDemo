@@ -5,12 +5,17 @@
 	<title>1</title>
 	<link rel="stylesheet" href="../lib/reset.css">
 	<script src="../lib/three.min.js"></script>
+	<script src="../lib/stats.js"></script>
 </head>
 <body>
-
+  <div id="Stats-output"></div>
 </body>
 </html>
+<script src="../lib/myStats.js"></script>
 <script>
+
+
+
 	var scene = new THREE.Scene();
 
 	var camera = new THREE.PerspectiveCamera(45, window.innerWidth/ window.innerHeight, 0.5, 1000);
@@ -19,6 +24,8 @@
 	renderer.setClearColor(0xEEEEEE);
 	renderer.setSize(window.innerWidth *2, window.innerHeight *2, false);
 	renderer.shadowMapEnabled = true;
+
+
 
 	var axes = new THREE.AxisHelper(20);
 	scene.add(axes);
@@ -66,12 +73,19 @@
 	document.body.appendChild( renderer.domElement );
 	renderer.render( scene, camera );
 
+
+
+
+
 	function render(){
-		change()
+		change();
+		stats.update();
 		renderer.render( scene, camera );
 		window.requestAnimationFrame(window.render);
 	}
 	render()
+
+
 
 
 	var left , right, front, back;
