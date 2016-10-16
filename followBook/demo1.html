@@ -12,8 +12,18 @@
 </body>
 </html>
 <script src="../lib/myStats.js"></script>
+<script src="../lib/dat.gui.min.js"></script>
 <script>
 
+  var controls = new function () {
+	  this.rotationSpeed = 0.02;
+	  this.bouncingSpeed = 0.03;
+  }
+
+
+  var gui = new dat.GUI();
+  gui.add(controls, "rotationSpeed", 0, 0.5);
+  gui.add(controls, "bouncingSpeed", 0, 0.5);
 
 
 	var scene = new THREE.Scene();
@@ -89,20 +99,27 @@
 
 
 	var left , right, front, back;
+	var step  = 0;
 	function change(v, time) {
+	  cube.rotation.x += controls.rotationSpeed;
+	  cube.rotation.y += controls.rotationSpeed;
+	  cube.rotation.z += controls.rotationSpeed;
 
-//			camera.position.y += 0.01;
+		step += controls.bouncingSpeed;
+		sphere.position.x = 6 + ( 10*(Math.cos(step)));
+		sphere.position.y = 5 + (10*Math.abs(Math.sin(step)));
+////			camera.position.y += 0.01;
+////		camera.lookAt(scene.position);
+//	  camera.position.x += 0.1;
+//	  camera.position.z -= 0.1;
 //		camera.lookAt(scene.position);
-	  camera.position.x += 0.1;
-	  camera.position.z -= 0.1;
-		camera.lookAt(scene.position);
-		setTimeout(function () {
-			change = function () {
-				camera.position.x -= 0.1;
-				camera.position.z += 0.1;
-				camera.lookAt(scene.position);
-			}
-		}, 15*1e3)
+//		setTimeout(function () {
+//			change = function () {
+//				camera.position.x -= 0.1;
+//				camera.position.z += 0.1;
+//				camera.lookAt(scene.position);
+//			}
+//		}, 15*1e3)
 	}
 
 </script>
